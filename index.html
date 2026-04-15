@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Банк лирических произведений</title>
+  <meta name="description" content="Интерактивный банк лирических произведений для подготовки к ЕГЭ по литературе." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div class="noise"></div>
+  <div class="grid-overlay"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-feather-pointed"></i></div>
+      <div class="brand-text">
+        <div class="brand-title">Банк лирических произведений</div>
+        <div class="brand-subtitle">Подготовка к ЕГЭ по литературе</div>
+      </div>
+    </div>
+    <div class="header-badge"><span class="badge-dot"></span>Цифровая библиотека будущего</div>
+  </header>
+
+  <main class="app-shell">
+    <section class="hero reveal">
+      <div class="hero-content">
+        <p class="eyebrow">ЕГЭ · Литература · Навигация по лирике</p>
+        <h1>Лирика для подготовки к ЕГЭ <span>в эффектном и удобном SPA-формате</span></h1>
+        <p class="hero-description">
+          Выбирайте тематический раздел, открывайте подборки произведений, фильтруйте тексты по авторам и быстро переходите к полноценному чтению.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-card glass"><span class="stat-number" id="statsCategories">6</span><span class="stat-label">категорий</span></div>
+          <div class="stat-card glass"><span class="stat-number" id="statsPoems">0</span><span class="stat-label">произведений</span></div>
+          <div class="stat-card glass"><span class="stat-number" id="statsAuthors">0</span><span class="stat-label">авторов</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual glass reveal delay-1">
+        <div class="hero-visual-ring ring-1"></div>
+        <div class="hero-visual-ring ring-2"></div>
+        <div class="hero-visual-core">
+          <div class="core-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+          <div class="core-title">ЕГЭ Poetry Bank</div>
+          <div class="core-text">Категории, кодификаторы, тексты и комфортное чтение — в одном пространстве.</div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="breadcrumbs glass hidden" id="breadcrumbs" aria-label="Навигация">
+      <button class="crumb-btn" id="crumbHome"><i class="fa-solid fa-house"></i>Категории</button>
+      <span class="crumb-separator">/</span>
+      <button class="crumb-btn hidden" id="crumbCategory"></button>
+      <span class="crumb-separator hidden" id="crumbSeparator2">/</span>
+      <button class="crumb-btn current hidden" id="crumbPoem"></button>
+    </nav>
+
+    <section class="screen screen-active" id="categoriesScreen">
+      <div class="section-head reveal">
+        <div>
+          <p class="section-kicker">Основные разделы</p>
+          <h2>Выберите направление лирики</h2>
+        </div>
+        <p class="section-note">Каждая карточка ведёт к списку произведений с кодификаторами ЕГЭ и полным текстом.</p>
+      </div>
+      <div class="categories-grid" id="categoriesGrid"></div>
+    </section>
+
+    <section class="screen hidden" id="poemsScreen">
+      <div class="section-toolbar reveal">
+        <button class="back-btn glass" id="backToCategories"><i class="fa-solid fa-arrow-left"></i>Назад к категориям</button>
+        <div class="toolbar-info">
+          <p class="section-kicker">Раздел</p>
+          <h2 id="poemsTitle">Категория</h2>
+        </div>
+      </div>
+
+      <section class="controls glass reveal">
+        <label class="control-field">
+          <span>Поиск по названию или тексту</span>
+          <div class="input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Например: любовь, Россия, весна..." />
+          </div>
+        </label>
+
+        <label class="control-field">
+          <span>Автор</span>
+          <div class="select-wrap">
+            <i class="fa-solid fa-user-pen"></i>
+            <select id="authorFilter">
+              <option value="">Все авторы</option>
+            </select>
+          </div>
+        </label>
+
+        <div class="control-summary" id="resultsSummary">Показано: 0</div>
+      </section>
+
+      <div class="poems-grid" id="poemsGrid"></div>
+    </section>
+
+    <section class="screen hidden" id="poemScreen">
+      <div class="section-toolbar reveal">
+        <button class="back-btn glass" id="backToPoems"><i class="fa-solid fa-arrow-left"></i>Назад к списку</button>
+        <div class="toolbar-info poem-toolbar-info">
+          <p class="section-kicker">Полный текст</p>
+          <h2 id="poemTitle">Название</h2>
+        </div>
+      </div>
+
+      <article class="poem-reader glass reveal">
+        <div class="poem-meta">
+          <div class="meta-pill"><i class="fa-solid fa-user-pen"></i><span id="poemAuthor">Автор</span></div>
+          <div class="meta-pill accent"><i class="fa-solid fa-hashtag"></i><span id="poemCode">Кодификатор</span></div>
+          <div class="meta-pill"><i class="fa-solid fa-book-bookmark"></i><span id="poemCategory">Категория</span></div>
+        </div>
+        <div class="poem-text-wrap">
+          <div class="poem-text" id="poemText"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Финальная демонстрационная версия проекта «Банк лирических произведений». Все тексты встроены в <code>script.js</code> и легко редактируются.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
